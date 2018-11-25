@@ -58,7 +58,7 @@ class FfzjbwspiderSpider(RedisSpider):
             urls = response.xpath("//a/@href").extract()
             for url in urls:
                 u = re.search(("(http|https):.+"), url)
-                if u:
+                if u and self.isHtml(u[0]):
                     urlslist.append(u[0])
         yield item
         for url in urlslist:
@@ -95,4 +95,11 @@ class FfzjbwspiderSpider(RedisSpider):
         self.count2 = self.count2 + 1
         if self.count2 > 100 and item["weight"] < 6:
             return False
+        return True
+
+    def isHtml(self,url):
+        suffix = [".jpg", ".png", "/"]
+        for one in suffix:
+            if url.endswith(one):
+                return False
         return True
