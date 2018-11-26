@@ -10,6 +10,7 @@ class FfzjbwspiderSpider(RedisSpider):
     name = 'ffzjbwSpider'
     redis_key = 'ffzjbwSpider:start_urls'
     #allowed_domains = ['com', 'net', 'biz', 'info', 'edu', 'org', 'eu', 'cn', 'gov']
+    count1 = 0
     count2 = 0
     curHost = ""
 
@@ -84,16 +85,19 @@ class FfzjbwspiderSpider(RedisSpider):
 
     def useStrategy1(self, item):
         if item["weight"] > 5:
-            return True
-        else:
+            self.count1=0
+        self.count1=self.count1+1
+        if self.count1>=3 and item["weight"]<6:
             return False
+        else:
+            return True
 
     def useStrategy2(self, item):
-        if not self.curHost != item["host"]:
+        if self.curHost != item["host"]:
             self.count2 = 0
             self.curHost = item["host"]
         self.count2 = self.count2 + 1
-        if self.count2 > 100 and item["weight"] < 6:
+        if self.count2 > 100 and item["weight"] < 8:
             return False
         return True
 
@@ -102,4 +106,6 @@ class FfzjbwspiderSpider(RedisSpider):
         for one in suffix:
             if url.endswith(one):
                 return False
+        if re.search("(login)|(forum.php)|(home.php)",url):
+            return False
         return True

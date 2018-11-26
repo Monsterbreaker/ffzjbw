@@ -2,6 +2,7 @@ import redis
 r=redis.Redis(host="localhost",port=6379,db=0)
 key="ffzjbwSpider:start_urls"
 urls=[
+    'https://www.8btc.com',
     'https://www.cnblogs.com/zhuweiheng/p/8206188.html',
     'http://www.nteweixiu.com',
     'http://www.lianzhidao.com',
