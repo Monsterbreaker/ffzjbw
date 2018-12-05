@@ -46,15 +46,19 @@ ROBOTSTXT_OBEY = False
 
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
-#    'ffzjbw.middlewares.FfzjbwSpiderMiddleware': 543,
-#}
+# SPIDER_MIDDLEWARES = {
+#    # 'ffzjbw.middlewares.FfzjbwSpiderMiddleware': 543,
+# 'scrapy_splash.SplashDeduplicateArgsMiddleware':100,
+# }
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
+# DOWNLOADER_MIDDLEWARES = {
 #    'ffzjbw.middlewares.FfzjbwDownloaderMiddleware': 543,
-#}
+#     'scrapy_splash.SplashCookiesMiddleware':723,
+#    'scrapy_splash.SplashMiddleware':725,
+#    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware':810,
+# }
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
@@ -66,7 +70,7 @@ ROBOTSTXT_OBEY = False
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    'ffzjbw.pipelines.FfzjbwPipeline': 300,
-    'ffzjbw.scrapy_redis.pipelines.RedisPipeline': 400,
+    #'ffzjbw.scrapy_redis.pipelines.RedisPipeline': 400,
 
 }
 
@@ -129,3 +133,10 @@ CONCURRENT_REQUESTS =32
 CLOSESPIDER_TIMEOUT = 1800 # 结束爬虫
 
 DOWNLOAD_TIMEOUT=10#超时等待时间
+
+
+#Splash配置
+#SPLASH_URL='http://192.168.99.100:8050'
+#SPLASH_URL='http://localhost:8050'
+
+

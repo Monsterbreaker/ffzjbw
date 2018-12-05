@@ -63,7 +63,10 @@ class RedisPipeline(object):
     def _process_item(self, item, spider):
         key = self.item_key(item, spider)
         data = self.serialize(item)
-        self.server.rpush(key, data)
+        if item["weight"]==0:
+            self.server.rpush("ffzjbwSpider:unrelated", data)
+        else:
+            self.server.rpush(key, data)
         return item
 
     def item_key(self, item, spider):
