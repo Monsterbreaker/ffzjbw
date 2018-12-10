@@ -12,7 +12,7 @@ class SimpleHash(object):
 
 class BloomFilter(object):
     def __init__(self, server, key, blockNum=1):
-        self.bit_size = 1 << 31  # Redis的String类型最大容量为512M，现使用256M
+        self.bit_size = 1 << 31  # 使用256M
         self.seeds = [5, 7, 11, 13, 31]
         # self.seeds = [5, 7, 11, 13, 31, 37, 61]
         self.server = server

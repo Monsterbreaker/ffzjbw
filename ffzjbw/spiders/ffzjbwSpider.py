@@ -16,6 +16,8 @@ class FfzjbwspiderSpider(RedisSpider):
     count1 = 0
     count2 = 0
     curHost = ""
+    isPassStrategy1 = True
+    isPassStrategy2 = True
 
     # start_urls = ['http://www.qukuailianh.com']
 
@@ -57,8 +59,9 @@ class FfzjbwspiderSpider(RedisSpider):
         self.calWeight(item)
         urlslist = []
         item["isrelated"] = False
-        if self.useStrategy1(item) and self.useStrategy2(item):
-            item["isrelated"] = True
+        if self.isPassStrategy1 and self.isPassStrategy2:
+            if item["weight"] > 0:
+                item["isrelated"] = True
             # 拿URL
             urls = response.xpath("//a/@href").extract()
             for url in urls:
@@ -93,9 +96,7 @@ class FfzjbwspiderSpider(RedisSpider):
             self.count1 = 0
         self.count1 = self.count1 + 1
         if self.count1 >= 3 and item["weight"] < 6:
-            return False
-        else:
-            return True
+            self.isPassStrategy1 = False
 
     def useStrategy2(self, item):
         if self.curHost != item["host"]:
@@ -103,14 +104,13 @@ class FfzjbwspiderSpider(RedisSpider):
             self.curHost = item["host"]
         self.count2 = self.count2 + 1
         if self.count2 > 100 and item["weight"] < 8:
-            return False
-        return True
+            self.isPassStrategy2 = False
 
     def isHtml(self, url):
-        suffix = [".jpg", ".png", "/"]
+        suffix = [".jpg",".jpeg", ".png", "/"]
         for one in suffix:
             if url.endswith(one):
                 return False
-        if re.search("(login)|(forum.php)|(home.php)|(haitunbc.com)", url):
+        if re.search("(login)|(forum.php)|(home.php)|(haitunbc.com)|(weibo.com)|(connect.qq.com)|(www.qifengle.com)|(ethorses.co)|(edu.51cto.com)|(bch.btc.com)", url):
             return False
         return True

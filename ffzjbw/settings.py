@@ -52,13 +52,13 @@ ROBOTSTXT_OBEY = False
 # }
 
 # Enable or disable downloader middlewares
-# See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-# DOWNLOADER_MIDDLEWARES = {
-#    'ffzjbw.middlewares.FfzjbwDownloaderMiddleware': 543,
-#     'scrapy_splash.SplashCookiesMiddleware':723,
-#    'scrapy_splash.SplashMiddleware':725,
-#    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware':810,
-# }
+#See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
+DOWNLOADER_MIDDLEWARES = {
+   'ffzjbw.middlewares.FfzjbwDownloaderMiddleware': 543,
+   #  'scrapy_splash.SplashCookiesMiddleware':723,
+   # 'scrapy_splash.SplashMiddleware':725,
+   # 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware':810,
+}
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
@@ -126,17 +126,21 @@ USER_AGENTS = [
     "Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; fr) Presto/2.9.168 Version/11.52",
 ]
 
-CONCURRENT_REQUESTS =32
+CONCURRENT_REQUESTS =128
 
 #DEPTH_LIMIT=1
 
-CLOSESPIDER_TIMEOUT = 1800 # 结束爬虫
+#CLOSESPIDER_TIMEOUT = 1800 # 结束爬虫
 
 DOWNLOAD_TIMEOUT=10#超时等待时间
 
+LOG_FILE = "mySpider.log"
+LOG_LEVEL = "INFO"
 
 #Splash配置
 #SPLASH_URL='http://192.168.99.100:8050'
 #SPLASH_URL='http://localhost:8050'
+
+HTTPERROR_ALLOWED_CODES = [403]
 
 

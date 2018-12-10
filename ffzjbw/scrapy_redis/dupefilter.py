@@ -101,6 +101,7 @@ class RFPDupeFilter(BaseDupeFilter):
         fp = self.request_fingerprint(request)
         #URL已存在
         if self.bf.isContains(fp):
+            self.server.incr("ffzjbwSpider:count")
             return True
         #URL不存在
         else:
